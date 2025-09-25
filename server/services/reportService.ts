@@ -1,14 +1,35 @@
-// Make sure you've reviewd the README.md file to understand the task and how to access the relevant resources
+import { getCompanyData } from './dbService';
+import { getNewsData } from './newsService';
+import { askGemini } from './llmService';
+import {
+  HIGH_LEVEL_SYSTEM_PROMPT,
+  DETAILED_SYSTEM_PROMPT,
+  createUserPrompt,
+} from '../prompts/investmentPrompts';
+import { GEMINI_MODEL } from '../config/constants';
 
 export const generateReportMarkdown = async (
   companyName: string,
   companyId: string,
   reportType: string
 ): Promise<string> => {
-  const placeholderMarkdown =
-    `# ${companyName} — Investment Report` +
-    `\n**${companyId}**: *${reportType}*\n\n` +
-    `TODO: implement the report using the LLM`;
+  try {
+    const [companyData, newsData] = await Promise.all([
+      getCompanyData(companyId),
+      getNewsData(companyId),
+    ]);
 
-  return placeholderMarkdown;
+    const systemPrompt =
+      reportType === 'high-level'
+        ? HIGH_LEVEL_SYSTEM_PROMPT
+        : DETAILED_SYSTEM_PROMPT;
+    const userPrompt = createUserPrompt(companyName, companyData, newsData);
+    const report = await askGemini(GEMINI_MODEL, systemPrompt, userPrompt);
+
+    console.log('Generated report markdown', report);
+    return report;
+  } catch (error) {
+    console.error('Error generating report:', error);
+    throw error;
+  }
 };
