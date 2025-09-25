@@ -23,11 +23,11 @@ export const generateReportMarkdown = async (
       reportType === 'high-level'
         ? HIGH_LEVEL_SYSTEM_PROMPT
         : DETAILED_SYSTEM_PROMPT;
-    const userPrompt = createUserPrompt(companyName, companyData, newsData);
-    const report = await askGemini(GEMINI_MODEL, systemPrompt, userPrompt);
 
-    console.log('Generated report markdown', report);
-    return report;
+    const userPrompt = createUserPrompt(companyName, companyData, newsData);
+
+    const report = await askGemini(GEMINI_MODEL, systemPrompt, userPrompt);
+    return report.replace(/\n\n/g, '\n').replace(/\n/g, '\n\n');
   } catch (error) {
     console.error('Error generating report:', error);
     throw error;
