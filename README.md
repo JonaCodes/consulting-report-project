@@ -39,7 +39,7 @@ You need two resources, the DB and the API
 
 **Connecting to the DB**
 
-- Add a `.env` file and add this:
+- Add a `.env` file in your `/server` directory with this:
   `DATABASE_URL=postgresql://workshop_readonly.qokkrimhprtufpqcpvmm:THE_DB_PASSWORD@aws-1-eu-central-1.pooler.supabase.com:6543/postgres`
 - Replace `THE_DB_PASSWORD` with the password provided by the instructor
 - You can access the DB using the provided `SalesforceData` model (see
@@ -79,6 +79,9 @@ want something for free (with rate limiting), you can use Google's Gemini
     }
 ```
 
+- Whichever LLM you use, you will likely need to add its API key to the `.env`
+  file as well (gemini expects a `GEMINI_API_KEY` in your env)
+
 ---
 
 ## Requirements
@@ -116,10 +119,28 @@ want something for free (with rate limiting), you can use Google's Gemini
    - Implement your work in this file (of course, I recommend you work
      modularly; a separate service for your LLM, API, DB, etc...)
 
+**Bonus**
+
+- The news API returns a random article for each company each time (which will
+  affect the model's decision)
+- This randomness simulates news staying "fresh"
+- However, some news is "stale" (articles you've seen before) and the data in
+  the DB is fixed
+- As such, to save on tokens you can cache the model's output report when you
+  get the same article title
+  - Why? If you get the same article, the model should give the same
+    recommendation - no need to call the LLM again and burn tokens!
+
+## Pro tip
+
+Check the data before you begin your actual work! In the real world there are
+almost always discrepancies between the project requirements and the actual
+real-world data you end up working with. Trust me
+
 ## Result
+
 **High level report example**
 <img width="989" height="543" alt="image" src="https://github.com/user-attachments/assets/3282f4d9-723b-4520-bdd7-7a70de750e1f" />
 
 **Detailed report example**
 <img width="989" height="872" alt="image" src="https://github.com/user-attachments/assets/af6abb47-2198-42c7-8b4a-8d7c958c654e" />
-
