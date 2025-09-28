@@ -115,3 +115,11 @@ want something for free (with rate limiting), you can use Google's Gemini
      presses the **Generate Report** button
    - Implement your work in this file (of course, I recommend you work
      modularly; a separate service for your LLM, API, DB, etc...)
+
+## Result
+**High level report example**
+<img width="989" height="543" alt="image" src="https://github.com/user-attachments/assets/3282f4d9-723b-4520-bdd7-7a70de750e1f" />
+
+**Detailed report example**
+<img width="989" height="872" alt="image" src="https://github.com/user-attachments/assets/af6abb47-2198-42c7-8b4a-8d7c958c654e" />
+
