@@ -1,7 +1,9 @@
 # Running the project
 
+- Make sure you have node version 20 or greater
 - Ensure `concurrently` is installed (`npm install concurrently --save-dev`)
 - Run `npm i`
+- Create a `.env` file in your `/server` directory and add the `DATABASE_URL=...` provided by the instructor
 - Run `npm run dev` - runs the front and backend concurrently with hot module
   and auto server reload
 - See the UI at [http://localhost:5173/](http://localhost:5173/)
