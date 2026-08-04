@@ -40,5 +40,6 @@ ${
 }
 
 News Data:
-${JSON.stringify(newsData, null, 2)}`;
+${JSON.stringify(newsData, null, 2)}
+`;
 };
